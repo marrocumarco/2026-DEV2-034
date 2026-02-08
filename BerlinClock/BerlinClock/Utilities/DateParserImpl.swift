@@ -14,15 +14,18 @@ class DateParserImpl: DateParser {
         return formatter
     }()
 
+    private let minutesFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "mm"
+        return formatter
+    }()
+
     func parseSeconds(from time: Date) -> Int {
         return Int(secondsFormatter.string(from: time))!
     }
 
     func parseMinutes(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm"
-        let minutesString = dateFormatter.string(from: time)
-        return Int(minutesString)!
+        return Int(minutesFormatter.string(from: time))!
     }
 
     func parseHours(from time: Date) -> Int {

@@ -318,4 +318,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.singleMinutesRow)
     }
+
+    @Test("test the entire clock")
+    func getClockState_ZeroTime() {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: "00:00:00")
+
+        let expectedResult = ClockState(secondsLamp: .yellow, fiveHoursRow: [.off, .off, .off, .off], singleHoursRow: [.off, .off, .off, .off], fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off], singleMinutesRow: [.off, .off, .off, .off])
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState)
+    }
 }

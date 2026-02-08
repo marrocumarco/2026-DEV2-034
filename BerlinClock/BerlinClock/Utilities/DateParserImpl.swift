@@ -20,6 +20,12 @@ class DateParserImpl: DateParser {
         return formatter
     }()
 
+    private let hoursFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH"
+        return formatter
+    }()
+
     func parseSeconds(from time: Date) -> Int {
         return Int(secondsFormatter.string(from: time))!
     }
@@ -29,9 +35,6 @@ class DateParserImpl: DateParser {
     }
 
     func parseHours(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        let hoursString = dateFormatter.string(from: time)
-        return Int(hoursString)!
+        return Int(hoursFormatter.string(from: time))!
     }
 }

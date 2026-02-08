@@ -10,12 +10,16 @@ import Foundation
 struct ClockStateCalculator {
 
     func getClockState(for time: Date) -> ClockState {
+
+        let seconds = parseSeconds(from: time)
+        return ClockState(secondsLamp: calculateSecondsLampState(seconds: seconds))
+    }
+
+    private func parseSeconds(from time: Date) -> Int {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "ss"
         let secondsString = dateFormatter.string(from: time)
-        let seconds = Int(secondsString)!
-
-        return ClockState(secondsLamp: calculateSecondsLampState(seconds: seconds))
+        return Int(secondsString)!
     }
 
     private func calculateSecondsLampState(seconds: Int) -> LampState {

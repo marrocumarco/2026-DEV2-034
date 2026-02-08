@@ -6,12 +6,16 @@
 //
 import Foundation
 
-struct DateParserImpl: DateParser {
+class DateParserImpl: DateParser {
+
+    private let secondsFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ss"
+        return formatter
+    }()
+
     func parseSeconds(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "ss"
-        let secondsString = dateFormatter.string(from: time)
-        return Int(secondsString)!
+        return Int(secondsFormatter.string(from: time))!
     }
 
     func parseMinutes(from time: Date) -> Int {

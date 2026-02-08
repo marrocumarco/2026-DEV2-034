@@ -258,4 +258,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
+
+    @Test("when the minutes are 0 or 5, the single minutes row is OOOO", arguments: ["00:00:00", "12:35:00"])
+    func getClockState_hoursZeroOrFive_SingleMinutesRow_AllInactive(minutesString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: minutesString)
+
+        let expectedResult: [LampState] = [.off, .off, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleMinutesRow)
+    }
 }

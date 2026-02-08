@@ -8,5 +8,6 @@
 import Foundation
 
 public enum LampState {
+    case off
     case yellow
 }

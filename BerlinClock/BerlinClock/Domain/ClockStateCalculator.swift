@@ -10,7 +10,7 @@ import Foundation
 struct ClockStateCalculator {
 
     private static let hoursPerLampInFiveHoursRow = 5
-    
+
     func getClockState(for time: Date) -> ClockState {
 
         let seconds = parseSeconds(from: time)

@@ -273,4 +273,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.singleMinutesRow)
     }
+
+    @Test("when the minutes' last digit is 4 or 9, the single minutes row is YYYY", arguments: ["23:59:59", "12:34:00"])
+    func getClockState_minutesLastDigitIsFourOrNine_SingleMinutesRow_AllActive(minutesString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: minutesString)
+
+        let expectedResult: [LampState] = [.yellow, .yellow, .yellow, .yellow]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleMinutesRow)
+    }
 }

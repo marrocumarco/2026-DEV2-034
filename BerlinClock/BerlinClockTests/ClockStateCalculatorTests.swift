@@ -26,5 +26,8 @@ struct ClockStateCalculatorTests {
         let time = dateFormatter.date(from: "12:34:56")
 
         let expectedResult = LampState.yellow
+
+        let clockState = sut.getClockState(for: time!)
+
     }
 }

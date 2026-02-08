@@ -14,19 +14,11 @@
 			remoteGlobalIDString = EB7575B12F389F95003416C8;
 			remoteInfo = BerlinClock;
 		};
-		EB7575CA2F389F97003416C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EB7575AA2F389F95003416C8 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EB7575B12F389F95003416C8;
-			remoteInfo = BerlinClock;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		EB7575B22F389F95003416C8 /* BerlinClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BerlinClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7575BF2F389F97003416C8 /* BerlinClockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BerlinClockTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB7575C92F389F97003416C8 /* BerlinClockUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BerlinClockUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -57,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB7575C62F389F97003416C8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,7 +66,6 @@
 			children = (
 				EB7575B22F389F95003416C8 /* BerlinClock.app */,
 				EB7575BF2F389F97003416C8 /* BerlinClockTests.xctest */,
-				EB7575C92F389F97003416C8 /* BerlinClockUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,26 +119,6 @@
 			productReference = EB7575BF2F389F97003416C8 /* BerlinClockTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		EB7575C82F389F97003416C8 /* BerlinClockUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EB7575D92F389F97003416C8 /* Build configuration list for PBXNativeTarget "BerlinClockUITests" */;
-			buildPhases = (
-				EB7575C52F389F97003416C8 /* Sources */,
-				EB7575C62F389F97003416C8 /* Frameworks */,
-				EB7575C72F389F97003416C8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EB7575CB2F389F97003416C8 /* PBXTargetDependency */,
-			);
-			name = BerlinClockUITests;
-			packageProductDependencies = (
-			);
-			productName = BerlinClockUITests;
-			productReference = EB7575C92F389F97003416C8 /* BerlinClockUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -169,10 +133,6 @@
 						CreatedOnToolsVersion = 26.1.1;
 					};
 					EB7575BE2F389F97003416C8 = {
-						CreatedOnToolsVersion = 26.1.1;
-						TestTargetID = EB7575B12F389F95003416C8;
-					};
-					EB7575C82F389F97003416C8 = {
 						CreatedOnToolsVersion = 26.1.1;
 						TestTargetID = EB7575B12F389F95003416C8;
 					};
@@ -197,7 +157,6 @@
 			targets = (
 				EB7575B12F389F95003416C8 /* BerlinClock */,
 				EB7575BE2F389F97003416C8 /* BerlinClockTests */,
-				EB7575C82F389F97003416C8 /* BerlinClockUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -211,13 +170,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		EB7575BD2F389F97003416C8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EB7575C72F389F97003416C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -241,13 +193,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EB7575C52F389F97003416C8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -255,11 +200,6 @@
 			isa = PBXTargetDependency;
 			target = EB7575B12F389F95003416C8 /* BerlinClock */;
 			targetProxy = EB7575C02F389F97003416C8 /* PBXContainerItemProxy */;
-		};
-		EB7575CB2F389F97003416C8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EB7575B12F389F95003416C8 /* BerlinClock */;
-			targetProxy = EB7575CA2F389F97003416C8 /* PBXContainerItemProxy */;
 		};
 		EB7575EA2F38A638003416C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -491,44 +431,6 @@
 			};
 			name = Release;
 		};
-		EB7575DA2F389F97003416C8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.2026-DEV2-034.BerlinClockUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BerlinClock;
-			};
-			name = Debug;
-		};
-		EB7575DB2F389F97003416C8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.2026-DEV2-034.BerlinClockUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BerlinClock;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -555,15 +457,6 @@
 			buildConfigurations = (
 				EB7575D72F389F97003416C8 /* Debug */,
 				EB7575D82F389F97003416C8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EB7575D92F389F97003416C8 /* Build configuration list for PBXNativeTarget "BerlinClockUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EB7575DA2F389F97003416C8 /* Debug */,
-				EB7575DB2F389F97003416C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

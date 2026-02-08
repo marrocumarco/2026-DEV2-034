@@ -153,4 +153,49 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.singleHoursRow)
     }
+
+    @Test("when the hours end with 2 or 7, the single hours row is RROO", arguments: ["22:00:00", "07:00:00"])
+    func getClockState_hoursEndWithTwoOrSeven_SingleHoursRow_TwoActiveLamps(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.red, .red, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleHoursRow)
+    }
+
+    @Test("when the hours end with 3 or 8, the single hours row is RRRO", arguments: ["23:00:00", "08:00:00"])
+    func getClockState_hoursEndWithThreeOrEight_SingleHoursRow_ThreeActiveLamps(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.red, .red, .red, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleHoursRow)
+    }
+
+    @Test("when the hours end with 4 or 9, the single hours row is RRRR", arguments: ["14:00:00", "09:00:00"])
+    func getClockState_hoursEndWithFourOrNine_SingleHoursRow_AllActiveLamps(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.red, .red, .red, .red]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleHoursRow)
+    }
 }

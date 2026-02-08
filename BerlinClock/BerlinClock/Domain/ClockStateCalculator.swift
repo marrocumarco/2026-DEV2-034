@@ -15,13 +15,14 @@ struct ClockStateCalculator {
     func getClockState(for time: Date) -> ClockState {
 
         let seconds = parseSeconds(from: time)
+        let minutes = parseMinutes(from: time)
         let hours = parseHours(from: time)
 
         return ClockState(
             secondsLamp: calculateSecondsLampState(seconds: seconds),
             fiveHoursRow: calculateFiveHoursRow(hours: hours),
             singleHoursRow: calculateSingleHoursRow(hours: hours),
-            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
+            fiveMinutesRow: calculateFiveMinutesRow(minutes: minutes)
         )
     }
 
@@ -30,6 +31,13 @@ struct ClockStateCalculator {
         dateFormatter.dateFormat = "ss"
         let secondsString = dateFormatter.string(from: time)
         return Int(secondsString)!
+    }
+
+    private func parseMinutes(from time: Date) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm"
+        let minutesString = dateFormatter.string(from: time)
+        return Int(minutesString)!
     }
 
     private func parseHours(from time: Date) -> Int {
@@ -69,5 +77,15 @@ struct ClockStateCalculator {
 
     private func getNumberOfActiveLampsInSingleHoursRow(for hours: Int) -> Int {
         hours % Self.singleHoursRowModulus
+    }
+
+    private func calculateFiveMinutesRow(minutes: Int) -> [LampState] {
+        var fiveMinutesRow: [LampState] = [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
+
+        for index in 0..<minutes/5 {
+            fiveMinutesRow[index] = (index + 1).isMultiple(of: 3) ? .red : .yellow
+        }
+
+        return fiveMinutesRow
     }
 }

@@ -12,9 +12,11 @@ struct ClockStateCalculator {
     func getClockState(for time: Date) -> ClockState {
 
         let seconds = parseSeconds(from: time)
+        let hours = parseHours(from: time)
+
         return ClockState(
             secondsLamp: calculateSecondsLampState(seconds: seconds),
-            fiveHoursRow: [.off, .off, .off, .off]
+            fiveHoursRow: calculateFiveHoursRow(hours: hours)
         )
     }
 
@@ -25,11 +27,26 @@ struct ClockStateCalculator {
         return Int(secondsString)!
     }
 
+    private func parseHours(from time: Date) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        let hoursString = dateFormatter.string(from: time)
+        return Int(hoursString)!
+    }
+
     private func calculateSecondsLampState(seconds: Int) -> LampState {
         return checkIsEven(seconds) ? .yellow : .off
     }
 
     private func checkIsEven(_ value: Int) -> Bool {
         return value.isMultiple(of: 2)
+    }
+
+    private func calculateFiveHoursRow(hours: Int) -> [LampState] {
+        var fiveHoursRow: [LampState] = [.off, .off, .off, .off]
+        for index in 0..<hours / 5 {
+            fiveHoursRow[index] = .red
+        }
+        return fiveHoursRow
     }
 }

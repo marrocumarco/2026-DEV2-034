@@ -122,75 +122,101 @@ struct ClockStateCalculatorTests {
     }
 
     @Test(
-        "when the minutes are between 0 and 4, the five minutes row is OOOOOOOOOOO",
-        arguments: ["00:00:00", "00:01:00", "00:02:00", "00:03:00", "00:04:00"]
-    )
-    func getClockState_minutesBetweenZeroAndFour_FiveMinutesRow_AllInactive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveMinutesRow)
-    }
-
-    @Test(
-        "when the minutes are between 55 and 59, the five minutes row is YYRYYRYYRYY",
-        arguments: ["23:55:59", "23:57:59", "23:59:59"]
-    )
-    func getClockState_minutesBetweenFiftyFiveAndFiftyNine_FiveMinutesRow_AllActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [
-            .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow,
+        """
+        when the minutes are between 0 and 4, the five minutes row is OOOOOOOOOOO,
+        when the minutes are between 55 and 59, the five minutes row is YYRYYRYYRYY,
+        when the minutes are between 20 and 24, the five minutes row is YYRYOOOOOOO
+        when the minutes are between 35 and 39, the five minutes row is YYRYYRYOOOO
+        """,
+        arguments: [
+            (
+                "00:00:00",
+                [
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                ]
+            ),
+            (
+                "00:01:00",
+                [
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                ]
+            ),
+            (
+                "00:02:00",
+                [
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                ]
+            ),
+            (
+                "00:03:00",
+                [
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                ]
+            ),
+            (
+                "00:04:00",
+                [
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                ]
+            ),
+            (
+                "23:55:59",
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
+                    LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
+                    LampState.yellow
+                ]
+            ),
+            (
+                "23:57:59",
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
+                    LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
+                    LampState.yellow
+                ]
+            ),
+            (
+                "23:59:59",
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
+                    LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
+                    LampState.yellow
+                ]
+            ),
+            (
+                "12:20:00",
+                [LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off]
+            ),
+            (
+                "12:23:00",
+                [LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off]
+            ),
+            (
+                "12:35:00",
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
+                ]
+            ),
+            (
+                "12:39:00",
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
+                ]
+            )
         ]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveMinutesRow)
-    }
-
-    @Test(
-        "when the minutes are between 20 and 24, the five minutes row is YYRYOOOOOOO",
-        arguments: ["12:20:00", "12:23:00"]
     )
-    func getClockState_minutesBetweenTwentyAndTwentyFour_FiveMinutesRow_FourActive(timeString: String) {
+    
+    func getClockState_FiveMinutesRow(timeString: String, expectedResult: [LampState]) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
         let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveMinutesRow)
-    }
-
-    @Test(
-        "when the minutes are between 35 and 39, the five minutes row is YYRYYRYOOOO",
-        arguments: ["12:35:00", "12:39:00"]
-    )
-    func getClockState_minutesBetweenThirtyfiveAndThirtyNine_FiveMinutesRow_SevenActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [
-            .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off,
-        ]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 

@@ -97,6 +97,10 @@ struct ClockStateCalculator {
     }
 
     private func getFiveMinutesRowLampColor(_ index: Int) -> LampState {
-        return (index + 1).isMultiple(of: Self.redLampsIntervalInFiveMinutesRow) ? .red : .yellow
+        if (index + 1).isMultiple(of: Self.redLampsIntervalInFiveMinutesRow) {
+            return .red
+        } else {
+            return .yellow
+        }
     }
 }

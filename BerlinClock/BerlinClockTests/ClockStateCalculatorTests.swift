@@ -95,19 +95,21 @@ struct ClockStateCalculatorTests {
         when the hours end with 3 or 8, the single hours row is RRRO,
         when the hours end with 4 or 9, the single hours row is RRRR
         """,
-        arguments: [("00:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+        arguments: [
+            ("00:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
 
-                    ("01:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
-                    ("16:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("01:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("16:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
 
-                    ("22:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
-                    ("07:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("22:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("07:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
 
-                    ("23:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
-                    ("08:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("23:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("08:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
 
-                    ("14:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
-                    ("09:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),]
+            ("14:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+            ("09:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+        ]
     )
     func getClockState_SingleHoursRow(timeString: String, expectedResult: [LampState]) {
 
@@ -133,35 +135,35 @@ struct ClockStateCalculatorTests {
                 "00:00:00",
                 [
                     LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
-                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
                 "00:01:00",
                 [
                     LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
-                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
                 "00:02:00",
                 [
                     LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
-                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
                 "00:03:00",
                 [
                     LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
-                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
                 "00:04:00",
                 [
                     LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
-                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
@@ -169,7 +171,7 @@ struct ClockStateCalculatorTests {
                 [
                     LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
                     LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
-                    LampState.yellow
+                    LampState.yellow,
                 ]
             ),
             (
@@ -177,7 +179,7 @@ struct ClockStateCalculatorTests {
                 [
                     LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
                     LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
-                    LampState.yellow
+                    LampState.yellow,
                 ]
             ),
             (
@@ -185,32 +187,40 @@ struct ClockStateCalculatorTests {
                 [
                     LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
                     LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow,
-                    LampState.yellow
+                    LampState.yellow,
                 ]
             ),
             (
                 "12:20:00",
-                [LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off]
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                ]
             ),
             (
                 "12:23:00",
-                [LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off, LampState.off]
+                [
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off,
+                    LampState.off, LampState.off, LampState.off, LampState.off, LampState.off,
+                ]
             ),
             (
                 "12:35:00",
                 [
-                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
+                    LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
             ),
             (
                 "12:39:00",
                 [
-                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
+                    LampState.yellow, LampState.yellow, LampState.red, LampState.yellow, LampState.yellow,
+                    LampState.red, LampState.yellow, LampState.off, LampState.off, LampState.off, LampState.off,
                 ]
-            )
+            ),
         ]
     )
-    
+
     func getClockState_FiveMinutesRow(timeString: String, expectedResult: [LampState]) {
 
         let dateFormatter = DateFormatter()

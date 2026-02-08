@@ -9,6 +9,6 @@ import Foundation
 
 struct ClockStateCalculator {
     func getClockState(for time: Date) -> ClockState {
-        ClockState()
+        ClockState(secondsLamp: .yellow)
     }
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 struct ClockState {
-
+    let secondsLamp: LampState
 }

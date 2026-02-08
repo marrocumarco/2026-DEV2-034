@@ -107,10 +107,14 @@ struct ClockStateCalculator {
     private func calculateSingleMinutesRow(minutes: Int) -> [LampState] {
         var singleMinutesRow: [LampState] = [.off, .off, .off, .off]
 
-        for index in 0..<minutes%5 {
+        for index in 0..<getNumberOfActiveLampsInSingleMinutesRow(for: minutes) {
             singleMinutesRow[index] = .yellow
         }
 
         return singleMinutesRow
+    }
+
+    private func getNumberOfActiveLampsInSingleMinutesRow(for minutes: Int) -> Int {
+        minutes % 5
     }
 }

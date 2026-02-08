@@ -233,69 +233,34 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
 
-    @Test("when the minutes are multiple of 5, the single minutes row is OOOO", arguments: ["00:00:00", "12:35:00"])
-    func getClockState_minutesMultipleOfFive_SingleMinutesRow_AllInactive(minutesString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: minutesString)
-
-        let expectedResult: [LampState] = [.off, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleMinutesRow)
-    }
-
     @Test(
-        "when the minutes' last digit is 4 or 9, the single minutes row is YYYY",
-        arguments: ["23:59:59", "12:34:00"]
+        """
+        when the minutes are multiple of 5, the single minutes row is OOOO,
+        when the minutes' last digit is 4 or 9, the single minutes row is YYYY,
+        when the minutes' last digit is 1 or 6, the single minutes row is YOOO,
+        when the minutes' last digit is 2 or 7, the single minutes row is YYOO
+        """,
+        arguments: [
+            ("00:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+            ("12:35:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+
+            ("12:34:00", [LampState.yellow, LampState.yellow, LampState.yellow, LampState.yellow]),
+            ("23:59:59", [LampState.yellow, LampState.yellow, LampState.yellow, LampState.yellow]),
+
+            ("23:51:59", [LampState.yellow, LampState.off, LampState.off, LampState.off]),
+            ("12:36:00", [LampState.yellow, LampState.off, LampState.off, LampState.off]),
+
+            ("23:52:59", [LampState.yellow, LampState.yellow, LampState.off, LampState.off]),
+            ("12:37:00", [LampState.yellow, LampState.yellow, LampState.off, LampState.off]),
+
+        ]
     )
-    func getClockState_minutesLastDigitIsFourOrNine_SingleMinutesRow_AllActive(minutesString: String) {
+    func getClockState_SingleMinutesRow(minutesString: String, expectedResult: [LampState]) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
         let time = dateFormatter.date(from: minutesString)
-
-        let expectedResult: [LampState] = [.yellow, .yellow, .yellow, .yellow]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleMinutesRow)
-    }
-
-    @Test(
-        "when the minutes' last digit is 1 or 6, the single minutes row is YOOO",
-        arguments: ["23:51:59", "12:36:00"]
-    )
-    func getClockState_minutesLastDigitIsOneOrSix_SingleMinutesRow_OneActive(minutesString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: minutesString)
-
-        let expectedResult: [LampState] = [.yellow, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleMinutesRow)
-    }
-
-    @Test(
-        "when the minutes' last digit is 2 or 7, the single minutes row is YYOO",
-        arguments: ["23:52:59", "12:37:00"]
-    )
-    func getClockState_minutesLastDigitIsTwoOrSeven_SingleMinutesRow_TwoActive(minutesString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: minutesString)
-
-        let expectedResult: [LampState] = [.yellow, .yellow, .off, .off]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 

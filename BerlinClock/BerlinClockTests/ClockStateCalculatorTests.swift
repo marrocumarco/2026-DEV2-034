@@ -138,4 +138,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.singleHoursRow)
     }
+
+    @Test("when the hours end with 1 or 6, the single hours row is ROOO", arguments: ["01:00:00", "16:00:00"])
+    func getClockState_hoursEndWithOneOrSix_SingleHoursRow_OneActiveLamp(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: "00:00:00")
+
+        let expectedResult: [LampState] = [.red, .off, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleHoursRow)
+    }
 }

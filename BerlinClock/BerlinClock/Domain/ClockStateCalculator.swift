@@ -8,7 +8,7 @@
 import Foundation
 
 struct ClockStateCalculator {
-    func getClockState(for time: Date) {
-
+    func getClockState(for time: Date) -> ClockState {
+        ClockState()
     }
 }

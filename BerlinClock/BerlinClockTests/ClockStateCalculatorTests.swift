@@ -32,4 +32,16 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.secondsLamp)
 
     }
+
+    @Test("when the seconds are odd, the seconds lamp is inactive")
+    func getClockState_secondsOdd_secondsLampInactive() {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: "12:34:57")
+
+        let expectedResult = LampState.off
+
+    }
 }

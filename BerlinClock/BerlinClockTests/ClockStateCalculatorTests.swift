@@ -145,7 +145,7 @@ struct ClockStateCalculatorTests {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
-        let time = dateFormatter.date(from: "00:00:00")
+        let time = dateFormatter.date(from: timeString)
 
         let expectedResult: [LampState] = [.red, .off, .off, .off]
 

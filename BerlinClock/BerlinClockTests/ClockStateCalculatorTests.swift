@@ -6,6 +6,7 @@
 //
 
 import Testing
+import Foundation
 @testable import BerlinClock
 
 struct ClockStateCalculatorTests {
@@ -14,5 +15,16 @@ struct ClockStateCalculatorTests {
 
     init() {
         sut = ClockStateCalculator()
+    }
+
+    @Test("when the seconds are even, the seconds lamp is active and yellow")
+    func getClockState_secondsEven_secondsLampActiveYellow() {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        let time = dateFormatter.date(from: "12:34:56")
+
+        let expectedResult = LampState.yellow
     }
 }

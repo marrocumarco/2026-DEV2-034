@@ -10,6 +10,7 @@ import Foundation
 struct ClockStateCalculator {
 
     private static let hoursPerLampInFiveHoursRow = 5
+    private static let minutesPerLampInFiveMinutesRow = 5
     private static let singleHoursRowModulus = 5
 
     func getClockState(for time: Date) -> ClockState {
@@ -91,7 +92,7 @@ struct ClockStateCalculator {
     }
 
     private func getNumberOfActiveLampsInFiveMinutesRow(for minutes: Int) -> Int {
-        minutes / 5
+        minutes / Self.minutesPerLampInFiveMinutesRow
     }
 
     private func getFiveMinutesRowLampColor(_ index: Int) -> LampState {

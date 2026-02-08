@@ -27,7 +27,7 @@ class DateParserImpl: DateParser {
     }
 
     func parseMinutes(from time: Date) -> Int {
-        return Int(minutesFormatter.string(from: time))!
+        calendar.component(.minute, from: time)
     }
 
     func parseHours(from time: Date) -> Int {

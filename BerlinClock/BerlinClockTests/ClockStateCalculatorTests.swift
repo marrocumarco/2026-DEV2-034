@@ -228,4 +228,34 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
+
+    @Test("when the minutes are between 20 and 24, the five minutes row is YYRYOOOOOOO", arguments: ["12:20:00", "12:23:00"])
+    func getClockState_minutesBetweenTwentyAndTwentyFour_FiveMinutesRow_FourActive(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.fiveMinutesRow)
+    }
+
+    @Test("when the minutes are between 35 and 39, the five minutes row is YYRYYRYOOOO", arguments: ["12:35:00", "12:39:00"])
+    func getClockState_minutesBetweenThirtyfiveAndThirtyNine_FiveMinutesRow_SevenActive(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.fiveMinutesRow)
+    }
 }

@@ -8,18 +8,6 @@ import Foundation
 
 class DateParserImpl: DateParser {
 
-    private let minutesFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "mm"
-        return formatter
-    }()
-
-    private let hoursFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH"
-        return formatter
-    }()
-
     private let calendar = Calendar.autoupdatingCurrent
 
     func parseSeconds(from time: Date) -> Int {
@@ -31,6 +19,6 @@ class DateParserImpl: DateParser {
     }
 
     func parseHours(from time: Date) -> Int {
-        return Int(hoursFormatter.string(from: time))!
+        calendar.component(.hour, from: time)
     }
 }

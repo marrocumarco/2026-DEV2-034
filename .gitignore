@@ -1,0 +1,22 @@
+.DS_Store
+
+## --- Xcode ---
+# Build artifacts
+build/
+DerivedData/
+
+# User-specific files (layout, open files, etc.)
+xcuserdata/
+
+# Xcode Project Workspace settings
+project.xcworkspace/xcuserdata/
+
+# Logic related to checking in snapshots
+XCUserData/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+## --- SwiftLint ---
+.swiftlintbin

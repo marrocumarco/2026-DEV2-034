@@ -12,4 +12,5 @@ struct ClockState {
     let fiveHoursRow: [LampState]
     let singleHoursRow: [LampState]
     let fiveMinutesRow: [LampState]
+    let singleMinutesRow: [LampState]
 }

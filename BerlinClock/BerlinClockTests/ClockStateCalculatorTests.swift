@@ -9,6 +9,7 @@ import Testing
 import Foundation
 @testable import BerlinClock
 
+@MainActor
 struct ClockStateCalculatorTests {
 
     var sut: ClockStateCalculator!

@@ -19,6 +19,10 @@ struct ClockStateCalculator {
     }
 
     private func calculateSecondsLampState(seconds: Int) -> LampState {
-        return seconds % 2 == 0 ? .yellow : .off
+        return checkIsEven(seconds) ? .yellow : .off
+    }
+
+    private func checkIsEven(_ value: Int) -> Bool {
+        return value.isMultiple(of: 2)
     }
 }

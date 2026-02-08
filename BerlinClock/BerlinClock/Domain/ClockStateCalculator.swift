@@ -12,7 +12,10 @@ struct ClockStateCalculator {
     func getClockState(for time: Date) -> ClockState {
 
         let seconds = parseSeconds(from: time)
-        return ClockState(secondsLamp: calculateSecondsLampState(seconds: seconds))
+        return ClockState(
+            secondsLamp: calculateSecondsLampState(seconds: seconds),
+            fiveHoursRow: [.off, .off, .off, .off]
+        )
     }
 
     private func parseSeconds(from time: Date) -> Int {

@@ -9,4 +9,5 @@ import Foundation
 
 struct ClockState {
     let secondsLamp: LampState
+    let fiveHoursRow: [LampState]
 }

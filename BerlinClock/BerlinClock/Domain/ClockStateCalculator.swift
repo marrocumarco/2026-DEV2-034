@@ -9,6 +9,11 @@ import Foundation
 
 struct ClockStateCalculator {
     func getClockState(for time: Date) -> ClockState {
-        ClockState(secondsLamp: .yellow)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "ss"
+        let secondsString = dateFormatter.string(from: time)
+        let seconds = Int(secondsString)!
+
+        return ClockState(secondsLamp: seconds % 2 == 0 ? .yellow : .off)
     }
 }

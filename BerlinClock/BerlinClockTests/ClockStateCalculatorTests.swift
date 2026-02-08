@@ -63,4 +63,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.fiveHoursRow)
     }
+
+    @Test("when the hours are between 20 and 23, the five hours lamps are RRRR", arguments: ["20:00:00", "21:00:00", "22:00:00", "23:00:00"])
+    func getClockState_hoursBetweenTwentyAndTwentythree_fiveHoursLampsActive(timeString: String) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: timeString)
+
+        let expectedResult: [LampState] = [.red, .red, .red, .red]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.fiveHoursRow)
+    }
 }

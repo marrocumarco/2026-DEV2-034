@@ -27,7 +27,7 @@ struct ClockStateCalculatorTests {
 
         let expectedResult = LampState.yellow
 
-        let clockState = sut.getClockState(for: time!)
+        let clockState: ClockState = sut.getClockState(for: time!)
 
     }
 }

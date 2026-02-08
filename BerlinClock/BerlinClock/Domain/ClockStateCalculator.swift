@@ -83,10 +83,14 @@ struct ClockStateCalculator {
     private func calculateFiveMinutesRow(minutes: Int) -> [LampState] {
         var fiveMinutesRow: [LampState] = [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
 
-        for index in 0..<minutes/5 {
+        for index in 0..<getNumberOfActiveLampsInFiveMinutesRow(for: minutes) {
             fiveMinutesRow[index] = (index + 1).isMultiple(of: 3) ? .red : .yellow
         }
 
         return fiveMinutesRow
+    }
+
+    private func getNumberOfActiveLampsInFiveMinutesRow(for minutes: Int) -> Int {
+        minutes / 5
     }
 }

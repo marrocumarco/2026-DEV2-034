@@ -37,89 +37,50 @@ struct ClockStateCalculatorTests {
     }
 
     @Test(
-        "when the hours are between 0 and 4, the five hours lamps are OOOO",
-        arguments: ["00:00:00", "01:00:00", "02:00:00", "03:00:00", "04:00:00"]
+        """
+        when the hours are between 0 and 4, the five hours lamps are OOOO,
+        when the hours are between 5 and 9, the five hours lamps are ROOO,
+        when the hours are between 10 and 14, the five hours lamps are RROO,
+        when the hours are between 15 and 19, the five hours lamps are RRRO,
+        when the hours are between 20 and 24, the five hours lamps are RRRR
+        """,
+        arguments: [
+            ("00:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+            ("01:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+            ("02:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+            ("03:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+            ("04:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
+
+            ("05:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("06:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("07:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("08:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+            ("09:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+
+            ("10:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("11:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("12:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("13:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+            ("14:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+
+            ("15:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("16:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("17:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("18:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+            ("19:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+
+            ("20:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+            ("21:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+            ("22:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+            ("23:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+        ]
     )
-    func getClockState_hoursBetweenZeroAndFour_fiveHoursLampsInactive(timeString: String) {
+    func getClockState_fiveHoursLamps(timeString: String, expectedResult: [LampState]) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
         let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.off, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveHoursRow)
-    }
-
-    @Test(
-        "when the hours are between 20 and 23, the five hours lamps are RRRR",
-        arguments: ["20:00:00", "21:00:00", "22:00:00", "23:00:00"]
-    )
-    func getClockState_hoursBetweenTwentyAndTwentythree_fiveHoursLampsActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .red, .red]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveHoursRow)
-    }
-
-    @Test(
-        "when the hours are between 5 and 9, the five hours lamps are ROOO",
-        arguments: ["05:00:00", "06:00:00", "07:00:00", "08:00:00", "09:00:00"]
-    )
-    func getClockState_hoursBetweenFiveAndNine_fiveHoursLamps_OneActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveHoursRow)
-    }
-
-    @Test(
-        "when the hours are between 10 and 14, the five hours lamps are RROO",
-        arguments: ["10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00"]
-    )
-    func getClockState_hoursBetweenTenAndFourteen_fiveHoursLamps_TwoActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.fiveHoursRow)
-    }
-
-    @Test(
-        "when the hours are between 15 and 19, the five hours lamps are RRRO",
-        arguments: ["15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00"]
-    )
-    func getClockState_hoursBetweenFifteenAndNineteen_fiveHoursLamps_ThreeActive(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .red, .off]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 

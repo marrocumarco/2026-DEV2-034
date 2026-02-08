@@ -49,13 +49,13 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.secondsLamp)
     }
 
-    @Test("when the hours are 0, the five hours lamps are OOOO")
-    func getClockState_hoursZero_fiveHoursLampsInactive() {
+    @Test("when the hours are between 0 and 4, the five hours lamps are OOOO", arguments: ["00:00:00", "01:00:00", "02:00:00", "03:00:00", "04:00:00"])
+    func getClockState_hoursBetweenZeroAndFour_fiveHoursLampsInactive(timeString: String) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
-        let time = dateFormatter.date(from: "00:00:00")
+        let time = dateFormatter.date(from: timeString)
 
         let expectedResult: [LampState] = [.off, .off, .off, .off]
 

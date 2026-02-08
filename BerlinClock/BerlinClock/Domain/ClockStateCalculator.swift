@@ -19,7 +19,7 @@ struct ClockStateCalculator {
         return ClockState(
             secondsLamp: calculateSecondsLampState(seconds: seconds),
             fiveHoursRow: calculateFiveHoursRow(hours: hours),
-            singleHoursRow: [.off, .off, .off, .off]
+            singleHoursRow: calculateSingleHoursRow(hours: hours)
         )
     }
 
@@ -55,5 +55,13 @@ struct ClockStateCalculator {
 
     private func getNumberOfActiveLampsInFiveHoursRow(for hours: Int) -> Int {
         hours / Self.hoursPerLampInFiveHoursRow
+    }
+
+    private func calculateSingleHoursRow(hours: Int) -> [LampState] {
+        var singleHoursRow: [LampState] = [.off, .off, .off, .off]
+        for index in 0..<hours%5 {
+            singleHoursRow[index] = .red
+        }
+        return singleHoursRow
     }
 }

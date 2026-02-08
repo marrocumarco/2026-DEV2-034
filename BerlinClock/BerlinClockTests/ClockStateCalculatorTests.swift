@@ -16,7 +16,7 @@ struct ClockStateCalculatorTests {
     var sut: ClockStateCalculator!
 
     init() {
-        sut = ClockStateCalculator()
+        sut = ClockStateCalculator(dateParser: DateParserImpl())
     }
 
     @Test(

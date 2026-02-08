@@ -15,11 +15,17 @@ struct ClockStateCalculator {
     private static let singleHoursRowModulus = 5
     private static let singleMinutesRowModulus = 5
 
+    private let dateParser: DateParser
+
+    init(dateParser: any DateParser) {
+        self.dateParser = dateParser
+    }
+
     func getClockState(for time: Date) -> ClockState {
 
-        let seconds = parseSeconds(from: time)
-        let minutes = parseMinutes(from: time)
-        let hours = parseHours(from: time)
+        let seconds = dateParser.parseSeconds(from: time)
+        let minutes = dateParser.parseMinutes(from: time)
+        let hours = dateParser.parseHours(from: time)
 
         return ClockState(
             secondsLamp: calculateSecondsLampState(seconds: seconds),
@@ -28,27 +34,6 @@ struct ClockStateCalculator {
             fiveMinutesRow: calculateFiveMinutesRow(minutes: minutes),
             singleMinutesRow: calculateSingleMinutesRow(minutes: minutes)
         )
-    }
-
-    private func parseSeconds(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "ss"
-        let secondsString = dateFormatter.string(from: time)
-        return Int(secondsString)!
-    }
-
-    private func parseMinutes(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "mm"
-        let minutesString = dateFormatter.string(from: time)
-        return Int(minutesString)!
-    }
-
-    private func parseHours(from time: Date) -> Int {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH"
-        let hoursString = dateFormatter.string(from: time)
-        return Int(hoursString)!
     }
 
     private func calculateSecondsLampState(seconds: Int) -> LampState {

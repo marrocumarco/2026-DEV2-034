@@ -29,5 +29,7 @@ struct ClockStateCalculatorTests {
 
         let clockState: ClockState = sut.getClockState(for: time!)
 
+        #expect(expectedResult == clockState.secondsLamp)
+
     }
 }

@@ -5,8 +5,9 @@
 //  Created by 2026-DEV2-034 on 08/02/2026.
 //
 
-import Testing
 import Foundation
+import Testing
+
 @testable import BerlinClock
 
 @MainActor
@@ -23,7 +24,7 @@ struct ClockStateCalculatorTests {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
-        
+
         let time = dateFormatter.date(from: "12:34:56")
 
         let expectedResult = LampState.yellow
@@ -49,7 +50,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.secondsLamp)
     }
 
-    @Test("when the hours are between 0 and 4, the five hours lamps are OOOO", arguments: ["00:00:00", "01:00:00", "02:00:00", "03:00:00", "04:00:00"])
+    @Test(
+        "when the hours are between 0 and 4, the five hours lamps are OOOO",
+        arguments: ["00:00:00", "01:00:00", "02:00:00", "03:00:00", "04:00:00"]
+    )
     func getClockState_hoursBetweenZeroAndFour_fiveHoursLampsInactive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -64,7 +68,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveHoursRow)
     }
 
-    @Test("when the hours are between 20 and 23, the five hours lamps are RRRR", arguments: ["20:00:00", "21:00:00", "22:00:00", "23:00:00"])
+    @Test(
+        "when the hours are between 20 and 23, the five hours lamps are RRRR",
+        arguments: ["20:00:00", "21:00:00", "22:00:00", "23:00:00"]
+    )
     func getClockState_hoursBetweenTwentyAndTwentythree_fiveHoursLampsActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -79,7 +86,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveHoursRow)
     }
 
-    @Test("when the hours are between 5 and 9, the five hours lamps are ROOO", arguments: ["05:00:00", "06:00:00", "07:00:00", "08:00:00", "09:00:00"])
+    @Test(
+        "when the hours are between 5 and 9, the five hours lamps are ROOO",
+        arguments: ["05:00:00", "06:00:00", "07:00:00", "08:00:00", "09:00:00"]
+    )
     func getClockState_hoursBetweenFiveAndNine_fiveHoursLamps_OneActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -94,7 +104,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveHoursRow)
     }
 
-    @Test("when the hours are between 10 and 14, the five hours lamps are RROO", arguments: ["10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00"])
+    @Test(
+        "when the hours are between 10 and 14, the five hours lamps are RROO",
+        arguments: ["10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00"]
+    )
     func getClockState_hoursBetweenTenAndFourteen_fiveHoursLamps_TwoActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -109,7 +122,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveHoursRow)
     }
 
-    @Test("when the hours are between 15 and 19, the five hours lamps are RRRO", arguments: ["15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00"])
+    @Test(
+        "when the hours are between 15 and 19, the five hours lamps are RRRO",
+        arguments: ["15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00"]
+    )
     func getClockState_hoursBetweenFifteenAndNineteen_fiveHoursLamps_ThreeActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -199,7 +215,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.singleHoursRow)
     }
 
-    @Test("when the minutes are between 0 and 4, the five minutes row is OOOOOOOOOOO", arguments: ["00:00:00", "00:01:00", "00:02:00", "00:03:00", "00:04:00"])
+    @Test(
+        "when the minutes are between 0 and 4, the five minutes row is OOOOOOOOOOO",
+        arguments: ["00:00:00", "00:01:00", "00:02:00", "00:03:00", "00:04:00"]
+    )
     func getClockState_minutesBetweenZeroAndFour_FiveMinutesRow_AllInactive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -214,7 +233,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
 
-    @Test("when the minutes are between 55 and 59, the five minutes row is YYRYYRYYRYY", arguments: ["23:55:59", "23:57:59", "23:59:59"])
+    @Test(
+        "when the minutes are between 55 and 59, the five minutes row is YYRYYRYYRYY",
+        arguments: ["23:55:59", "23:57:59", "23:59:59"]
+    )
     func getClockState_minutesBetweenFiftyFiveAndFiftyNine_FiveMinutesRow_AllActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -222,14 +244,19 @@ struct ClockStateCalculatorTests {
 
         let time = dateFormatter.date(from: timeString)
 
-        let expectedResult: [LampState] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow]
+        let expectedResult: [LampState] = [
+            .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow,
+        ]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
 
-    @Test("when the minutes are between 20 and 24, the five minutes row is YYRYOOOOOOO", arguments: ["12:20:00", "12:23:00"])
+    @Test(
+        "when the minutes are between 20 and 24, the five minutes row is YYRYOOOOOOO",
+        arguments: ["12:20:00", "12:23:00"]
+    )
     func getClockState_minutesBetweenTwentyAndTwentyFour_FiveMinutesRow_FourActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -244,7 +271,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveMinutesRow)
     }
 
-    @Test("when the minutes are between 35 and 39, the five minutes row is YYRYYRYOOOO", arguments: ["12:35:00", "12:39:00"])
+    @Test(
+        "when the minutes are between 35 and 39, the five minutes row is YYRYYRYOOOO",
+        arguments: ["12:35:00", "12:39:00"]
+    )
     func getClockState_minutesBetweenThirtyfiveAndThirtyNine_FiveMinutesRow_SevenActive(timeString: String) {
 
         let dateFormatter = DateFormatter()
@@ -252,7 +282,9 @@ struct ClockStateCalculatorTests {
 
         let time = dateFormatter.date(from: timeString)
 
-        let expectedResult: [LampState] = [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off]
+        let expectedResult: [LampState] = [
+            .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off,
+        ]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 
@@ -274,7 +306,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.singleMinutesRow)
     }
 
-    @Test("when the minutes' last digit is 4 or 9, the single minutes row is YYYY", arguments: ["23:59:59", "12:34:00"])
+    @Test(
+        "when the minutes' last digit is 4 or 9, the single minutes row is YYYY",
+        arguments: ["23:59:59", "12:34:00"]
+    )
     func getClockState_minutesLastDigitIsFourOrNine_SingleMinutesRow_AllActive(minutesString: String) {
 
         let dateFormatter = DateFormatter()
@@ -289,7 +324,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.singleMinutesRow)
     }
 
-    @Test("when the minutes' last digit is 1 or 6, the single minutes row is YOOO", arguments: ["23:51:59", "12:36:00"])
+    @Test(
+        "when the minutes' last digit is 1 or 6, the single minutes row is YOOO",
+        arguments: ["23:51:59", "12:36:00"]
+    )
     func getClockState_minutesLastDigitIsOneOrSix_SingleMinutesRow_OneActive(minutesString: String) {
 
         let dateFormatter = DateFormatter()
@@ -304,7 +342,10 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.singleMinutesRow)
     }
 
-    @Test("when the minutes' last digit is 2 or 7, the single minutes row is YYOO", arguments: ["23:52:59", "12:37:00"])
+    @Test(
+        "when the minutes' last digit is 2 or 7, the single minutes row is YYOO",
+        arguments: ["23:52:59", "12:37:00"]
+    )
     func getClockState_minutesLastDigitIsTwoOrSeven_SingleMinutesRow_TwoActive(minutesString: String) {
 
         let dateFormatter = DateFormatter()
@@ -327,7 +368,13 @@ struct ClockStateCalculatorTests {
 
         let time = dateFormatter.date(from: "00:00:00")
 
-        let expectedResult = ClockState(secondsLamp: .yellow, fiveHoursRow: [.off, .off, .off, .off], singleHoursRow: [.off, .off, .off, .off], fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off], singleMinutesRow: [.off, .off, .off, .off])
+        let expectedResult = ClockState(
+            secondsLamp: .yellow,
+            fiveHoursRow: [.off, .off, .off, .off],
+            singleHoursRow: [.off, .off, .off, .off],
+            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off],
+            singleMinutesRow: [.off, .off, .off, .off]
+        )
 
         let clockState: ClockState = sut.getClockState(for: time!)
 

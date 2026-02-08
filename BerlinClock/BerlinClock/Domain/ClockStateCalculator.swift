@@ -20,7 +20,8 @@ struct ClockStateCalculator {
         return ClockState(
             secondsLamp: calculateSecondsLampState(seconds: seconds),
             fiveHoursRow: calculateFiveHoursRow(hours: hours),
-            singleHoursRow: calculateSingleHoursRow(hours: hours)
+            singleHoursRow: calculateSingleHoursRow(hours: hours),
+            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off]
         )
     }
 

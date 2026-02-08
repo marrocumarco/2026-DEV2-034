@@ -87,75 +87,34 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.fiveHoursRow)
     }
 
-    @Test("when the hours are 0, the single hours lamps are OOOO")
-    func getClockState_hoursZero_SingleHoursRow_AllInactive() {
+    @Test(
+        """
+        when the hours are 0, the single hours lamps are OOOO,
+        when the hours end with 1 or 6, the single hours row is ROOO,
+        when the hours end with 2 or 7, the single hours row is RROO,
+        when the hours end with 3 or 8, the single hours row is RRRO,
+        when the hours end with 4 or 9, the single hours row is RRRR
+        """,
+        arguments: [("00:00:00", [LampState.off, LampState.off, LampState.off, LampState.off]),
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
+                    ("01:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
+                    ("16:00:00", [LampState.red, LampState.off, LampState.off, LampState.off]),
 
-        let time = dateFormatter.date(from: "00:00:00")
+                    ("22:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
+                    ("07:00:00", [LampState.red, LampState.red, LampState.off, LampState.off]),
 
-        let expectedResult: [LampState] = [.off, .off, .off, .off]
+                    ("23:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
+                    ("08:00:00", [LampState.red, LampState.red, LampState.red, LampState.off]),
 
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleHoursRow)
-    }
-
-    @Test("when the hours end with 1 or 6, the single hours row is ROOO", arguments: ["01:00:00", "16:00:00"])
-    func getClockState_hoursEndWithOneOrSix_SingleHoursRow_OneActiveLamp(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .off, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleHoursRow)
-    }
-
-    @Test("when the hours end with 2 or 7, the single hours row is RROO", arguments: ["22:00:00", "07:00:00"])
-    func getClockState_hoursEndWithTwoOrSeven_SingleHoursRow_TwoActiveLamps(timeString: String) {
+                    ("14:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),
+                    ("09:00:00", [LampState.red, LampState.red, LampState.red, LampState.red]),]
+    )
+    func getClockState_SingleHoursRow(timeString: String, expectedResult: [LampState]) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
         let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .off, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleHoursRow)
-    }
-
-    @Test("when the hours end with 3 or 8, the single hours row is RRRO", arguments: ["23:00:00", "08:00:00"])
-    func getClockState_hoursEndWithThreeOrEight_SingleHoursRow_ThreeActiveLamps(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .red, .off]
-
-        let clockState: ClockState = sut.getClockState(for: time!)
-
-        #expect(expectedResult == clockState.singleHoursRow)
-    }
-
-    @Test("when the hours end with 4 or 9, the single hours row is RRRR", arguments: ["14:00:00", "09:00:00"])
-    func getClockState_hoursEndWithFourOrNine_SingleHoursRow_AllActiveLamps(timeString: String) {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-
-        let time = dateFormatter.date(from: timeString)
-
-        let expectedResult: [LampState] = [.red, .red, .red, .red]
 
         let clockState: ClockState = sut.getClockState(for: time!)
 

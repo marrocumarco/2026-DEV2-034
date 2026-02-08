@@ -8,12 +8,6 @@ import Foundation
 
 class DateParserImpl: DateParser {
 
-    private let secondsFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "ss"
-        return formatter
-    }()
-
     private let minutesFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "mm"
@@ -26,8 +20,10 @@ class DateParserImpl: DateParser {
         return formatter
     }()
 
+    private let calendar = Calendar.autoupdatingCurrent
+
     func parseSeconds(from time: Date) -> Int {
-        return Int(secondsFormatter.string(from: time))!
+        calendar.component(.second, from: time)
     }
 
     func parseMinutes(from time: Date) -> Int {

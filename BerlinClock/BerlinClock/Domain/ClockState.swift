@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ClockState {
+struct ClockState: Equatable {
     let secondsLamp: LampState
     let fiveHoursRow: [LampState]
     let singleHoursRow: [LampState]

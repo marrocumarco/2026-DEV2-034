@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum LampState {
+public enum LampState: Equatable {
     case off
     case yellow
     case red

@@ -360,24 +360,60 @@ struct ClockStateCalculatorTests {
         #expect(expectedResult == clockState.singleMinutesRow)
     }
 
-    @Test("test the entire clock")
-    func getClockState_ZeroTime() {
+    @Test(
+        "test the entire clock",
+        arguments: [
+            (
+                "00:00:00",
+                ClockState(
+                    secondsLamp: .yellow,
+                    fiveHoursRow: [.off, .off, .off, .off],
+                    singleHoursRow: [.off, .off, .off, .off],
+                    fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off],
+                    singleMinutesRow: [.off, .off, .off, .off]
+                )
+            ),
+            (
+                "23:59:59",
+                ClockState(
+                    secondsLamp: .off,
+                    fiveHoursRow: [.red, .red, .red, .red],
+                    singleHoursRow: [.red, .red, .red, .off],
+                    fiveMinutesRow: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow],
+                    singleMinutesRow: [.yellow, .yellow, .yellow, .yellow]
+                )
+            ),
+            (
+                "16:50:06",
+                ClockState(
+                    secondsLamp: .yellow,
+                    fiveHoursRow: [.red, .red, .red, .off],
+                    singleHoursRow: [.red, .off, .off, .off],
+                    fiveMinutesRow: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off],
+                    singleMinutesRow: [.off, .off, .off, .off]
+                )
+            ),
+            (
+                "11:37:01",
+                ClockState(
+                    secondsLamp: .off,
+                    fiveHoursRow: [.red, .red, .off, .off],
+                    singleHoursRow: [.red, .off, .off, .off],
+                    fiveMinutesRow: [.yellow, .yellow, .red, .yellow, .yellow, .red, .yellow, .off, .off, .off, .off],
+                    singleMinutesRow: [.yellow, .yellow, .off, .off]
+                )
+            )
+        ]
+    )
+    func getClockState_ZeroTime(timeString: String, expected: ClockState) {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
 
-        let time = dateFormatter.date(from: "00:00:00")
-
-        let expectedResult = ClockState(
-            secondsLamp: .yellow,
-            fiveHoursRow: [.off, .off, .off, .off],
-            singleHoursRow: [.off, .off, .off, .off],
-            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off],
-            singleMinutesRow: [.off, .off, .off, .off]
-        )
+        let time = dateFormatter.date(from: timeString)
 
         let clockState: ClockState = sut.getClockState(for: time!)
 
-        #expect(expectedResult == clockState)
+        #expect(expected == clockState)
     }
 }

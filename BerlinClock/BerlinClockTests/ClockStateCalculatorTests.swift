@@ -123,4 +123,19 @@ struct ClockStateCalculatorTests {
 
         #expect(expectedResult == clockState.fiveHoursRow)
     }
+
+    @Test("when the hours are 0, the single hours lamps are OOOO")
+    func getClockState_hoursZero_SingleHoursRow_AllInactive() {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+
+        let time = dateFormatter.date(from: "00:00:00")
+
+        let expectedResult: [LampState] = [.off, .off, .off, .off]
+
+        let clockState: ClockState = sut.getClockState(for: time!)
+
+        #expect(expectedResult == clockState.singleHoursRow)
+    }
 }

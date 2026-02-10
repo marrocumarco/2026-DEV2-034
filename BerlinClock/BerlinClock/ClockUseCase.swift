@@ -9,12 +9,17 @@ import Foundation
 
 struct ClockUseCase {
     let timeProvider: TimeProviderProtocol
+
     func getClockState() -> AsyncStream<PresentationClockState> {
         AsyncStream { continuation in
-            Task {
-                for await _ in timeProvider.getTime() {
-                    continuation.yield(PresentationClockState())
-                }
+            listenToTimeProvider(continuation)
+        }
+    }
+
+    private func listenToTimeProvider(_ continuation: AsyncStream<PresentationClockState>.Continuation) {
+        Task {
+            for await _ in timeProvider.getTime() {
+                continuation.yield(PresentationClockState())
             }
         }
     }

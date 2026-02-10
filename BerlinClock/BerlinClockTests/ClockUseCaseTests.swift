@@ -19,7 +19,7 @@ struct ClockUseCaseTests {
     init() {
         timeProvider = TimeProviderMock()
         clockStateCalculator = ClockStateCalculatorMock()
-        sut = ClockUseCase(timeProvider: timeProvider)
+        sut = ClockUseCase(timeProvider: timeProvider, clockStateCalculator: clockStateCalculator)
     }
 
     @Test
@@ -48,6 +48,6 @@ struct ClockUseCaseTests {
         #expect(timeProvider.getTimeCalled)
         #expect(clockStateCalculator.getClockStateCalled)
         #expect(result?.time == time)
-        #expect(result?.state == state)
+        #expect(result?.state == expectedClockState)
     }
 }

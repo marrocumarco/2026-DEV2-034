@@ -8,5 +8,9 @@
 import Foundation
 
 class ClockViewModel {
+    internal init(clockUseCase: any ClockUseCaseProtocol) {
+        self.clockUseCase = clockUseCase
+    }
+
     private let clockUseCase: ClockUseCaseProtocol
 }

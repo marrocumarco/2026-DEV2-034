@@ -20,13 +20,15 @@ struct ClockUseCase {
     private func listenToTimeProvider(_ continuation: AsyncStream<PresentationClockState>.Continuation) {
         Task {
             for await time in timeProvider.getTime() {
-                let clockState = clockStateCalculator.getClockState(for: time)
-                let presentationClockState = PresentationClockState(time: time, state: clockState)
-
                 continuation.yield(
-                    presentationClockState
+                    calculateState(for: time)
                 )
             }
         }
+    }
+
+    private func calculateState(for time: Date) -> PresentationClockState {
+        let clockState = clockStateCalculator.getClockState(for: time)
+        return PresentationClockState(time: time, state: clockState)
     }
 }

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ClockUseCaseProtocol {
-
+    func getClockState() -> AsyncStream<PresentationClockState>
 }

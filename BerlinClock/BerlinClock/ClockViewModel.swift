@@ -13,4 +13,10 @@ class ClockViewModel {
     }
 
     private let clockUseCase: ClockUseCaseProtocol
+
+    func startClock() {
+
+        clockUseCase.getClockState()
+
+    }
 }

@@ -21,10 +21,10 @@ struct ClockUseCaseTests {
         clockStateCalculator = ClockStateCalculatorMock()
     }
 
-    @Test func `getClockState returns a stream of PresentationClockState`() {
-        let iterator = sut.getClockState().makeAsyncIterator()
+    @Test func `getClockState returns a stream of PresentationClockState`() async {
+        var iterator = sut.getClockState().makeAsyncIterator()
 
-        let result: PresentationClockState = try await iterator.next()
+        let result: PresentationClockState? = await iterator.next()
 
         #expect(result != nil)
      }

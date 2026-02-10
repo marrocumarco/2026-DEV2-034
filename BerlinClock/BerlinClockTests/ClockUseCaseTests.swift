@@ -8,14 +8,6 @@
 import Testing
 @testable import BerlinClock
 
-class TimeProviderMock: TimeProviderProtocol {
-
-}
-
-class ClockStateCalculatorMock: ClockStateCalculatorProtocol {
-
-}
-
 struct ClockUseCaseTests {
 
     let sut: ClockUseCase!

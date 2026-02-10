@@ -6,7 +6,7 @@
 //
 
 import Testing
-
+import Foundation
 @testable import BerlinClock
 
 struct ClockUseCaseTests {
@@ -16,16 +16,20 @@ struct ClockUseCaseTests {
     let clockStateCalculator: ClockStateCalculatorMock!
 
     init() {
-        sut = ClockUseCase()
         timeProvider = TimeProviderMock()
         clockStateCalculator = ClockStateCalculatorMock()
+        sut = ClockUseCase(timeProvider: timeProvider)
     }
 
-    @Test func `getClockState returns a stream of PresentationClockState`() async {
-        var iterator = sut.getClockState().makeAsyncIterator()
+    @Test func `getClockState returns a stream of PresentationClockState when the time provider emits a time`() async {
+        var iterator = await sut.getClockState().makeAsyncIterator()
+
+        let date = Date(timeIntervalSince1970: 0)
+        timeProvider.emit(time: date)
 
         let result: PresentationClockState? = await iterator.next()
 
         #expect(result != nil)
+        #expect(timeProvider.getTimeCalled)
      }
 }

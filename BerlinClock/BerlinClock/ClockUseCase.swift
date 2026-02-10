@@ -7,4 +7,11 @@
 
 import Foundation
 
-struct ClockUseCase {}
+struct ClockUseCase {
+
+    func getClockState() -> AsyncStream<PresentationClockState> {
+        AsyncStream { continuation in
+            continuation.yield(PresentationClockState())
+        }
+    }
+}

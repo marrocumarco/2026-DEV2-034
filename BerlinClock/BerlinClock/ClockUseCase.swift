@@ -8,8 +8,13 @@
 import Foundation
 
 struct ClockUseCase {
-    let timeProvider: TimeProviderProtocol
-    let clockStateCalculator: ClockStateCalculatorProtocol
+    internal init(timeProvider: any TimeProviderProtocol, clockStateCalculator: any ClockStateCalculatorProtocol) {
+        self.timeProvider = timeProvider
+        self.clockStateCalculator = clockStateCalculator
+    }
+
+    private let timeProvider: TimeProviderProtocol
+    private let clockStateCalculator: ClockStateCalculatorProtocol
 
     func getClockState() -> AsyncStream<PresentationClockState> {
         AsyncStream { continuation in

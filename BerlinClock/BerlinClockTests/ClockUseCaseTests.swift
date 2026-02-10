@@ -6,8 +6,9 @@
 //
 
 import Testing
+@testable import BerlinClock
 
-class TimeProviderMock: TimeProvider {
+class TimeProviderMock: TimeProviderProtocol {
 
 }
 
@@ -22,7 +23,9 @@ struct ClockUseCaseTests {
     let clockStateCalculator: ClockStateCalculatorMock!
 
     init() {
-        sut = ClockUseCaseImpl()
+        sut = ClockUseCase()
+        timeProvider = TimeProviderMock()
+        clockStateCalculator = ClockStateCalculatorMock()
     }
 
 }

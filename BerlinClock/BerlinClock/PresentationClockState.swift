@@ -8,5 +8,6 @@
 import Foundation
 
 struct PresentationClockState {
-
+    let time: Date
+    let state: ClockState
 }

@@ -9,6 +9,7 @@ import Foundation
 
 struct ClockUseCase {
     let timeProvider: TimeProviderProtocol
+    let clockStateCalculator: ClockStateCalculatorProtocol
 
     func getClockState() -> AsyncStream<PresentationClockState> {
         AsyncStream { continuation in
@@ -18,8 +19,13 @@ struct ClockUseCase {
 
     private func listenToTimeProvider(_ continuation: AsyncStream<PresentationClockState>.Continuation) {
         Task {
-            for await _ in timeProvider.getTime() {
-                continuation.yield(PresentationClockState())
+            for await time in timeProvider.getTime() {
+                let clockState = clockStateCalculator.getClockState(for: time)
+                let presentationClockState = PresentationClockState(time: time, state: clockState)
+
+                continuation.yield(
+                    presentationClockState
+                )
             }
         }
     }

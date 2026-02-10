@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol ClockStateCalculatorProtocol {}
+protocol ClockStateCalculatorProtocol {
+    func getClockState(for time: Date) -> ClockState
+}

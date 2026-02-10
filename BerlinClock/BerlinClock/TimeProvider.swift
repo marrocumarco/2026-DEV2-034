@@ -8,5 +8,5 @@
 import Foundation
 
 protocol TimeProviderProtocol {
-
+    func getTime() -> AsyncStream<Date>
 }

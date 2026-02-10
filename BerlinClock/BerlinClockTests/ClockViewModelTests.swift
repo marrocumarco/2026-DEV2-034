@@ -7,6 +7,7 @@
 	
 
 import Foundation
+@testable import BerlinClock
 
 class ClockUseCaseMock: ClockUseCaseProtocol {
 

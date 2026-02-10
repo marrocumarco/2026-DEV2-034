@@ -12,9 +12,17 @@ import Testing
 @testable import BerlinClock
 
 class ClockUseCaseMock: ClockUseCaseProtocol {
+    var continuation: AsyncStream<PresentationClockState>.Continuation?
+
     var getClockStateCalled = false
+
     func getClockState() -> AsyncStream<PresentationClockState> {
         getClockStateCalled = true
+        return AsyncStream { continuation = $0 }
+    }
+
+    func emit(state: PresentationClockState) {
+        continuation?.yield(state)
     }
 }
 

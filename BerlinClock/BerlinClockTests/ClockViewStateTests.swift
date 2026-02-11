@@ -39,4 +39,17 @@ struct ClockViewStateTests {
 
         #expect(sut.secondsLampColor == Color.gray)
     }
+
+    @Test func `five hours row colors correspond to the state`() throws {
+
+        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(
+            secondsLamp: .yellow,
+            fiveHoursRow: [.red, .off, .red, .off],
+            singleHoursRow: [.off, .off, .off, .off],
+            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off],
+            singleMinutesRow: [.off, .off, .off, .off]
+        )))
+
+        #expect(sut.fiveHoursRow == [Color.red, Color.gray, Color.red, Color.gray])
+    }
 }

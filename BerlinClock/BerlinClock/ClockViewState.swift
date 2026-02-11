@@ -34,19 +34,23 @@ struct ClockViewState: Equatable {
     }
 
     private static func calculateSecondsLampColor(_ presentationState: PresentationClockState) -> Color {
-        return presentationState.state.secondsLamp == .yellow ? .yellow : .gray
+        return getColor(from: presentationState.state.secondsLamp)
+    }
+
+    private static func getColor(from state: LampState) -> Color {
+        switch state {
+        case .red:
+            return .red
+        case .yellow:
+            return .yellow
+        case .off:
+            return .gray
+        }
     }
 
     private static func createColorList(from lampStateList: [LampState]) -> [Color] {
         lampStateList.map { state in
-            switch state {
-            case .red:
-                return .red
-            case .yellow:
-                return .yellow
-            case .off:
-                return .gray
-            }
+            return getColor(from: state)
         }
     }
 }

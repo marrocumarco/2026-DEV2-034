@@ -13,16 +13,34 @@ import Testing
 
 class ClockUseCaseMock: ClockUseCaseProtocol {
     var continuation: AsyncStream<PresentationClockState>.Continuation?
+    private var subscriptionContinuation: CheckedContinuation<Void, Never>?
 
     var getClockStateCalled = false
 
     func getClockState() -> AsyncStream<PresentationClockState> {
-        getClockStateCalled = true
-        return AsyncStream { continuation = $0 }
+        if let subContinuation = subscriptionContinuation {
+            getClockStateCalled = true
+
+            subContinuation.resume()
+            subscriptionContinuation = nil
+        }
+        return AsyncStream {
+            continuation = $0
+        }
+    }
+
+    func waitForSubscription() async {
+        await withCheckedContinuation { continuation in
+            self.subscriptionContinuation = continuation
+        }
     }
 
     func emit(state: PresentationClockState) {
         continuation?.yield(state)
+    }
+
+    func finish() {
+        continuation?.finish()
     }
 }
 
@@ -35,10 +53,26 @@ struct ClockViewModelTests {
         sut = ClockViewModel(clockUseCase: useCaseMock)
     }
 
-    @Test func `startClock calls the method getClockState of the use case`() {
+    @Test func `when startClock is called, the view model listens to the use case and sets the view state every time there is an update`() async {
 
-        sut.startClock()
+        let presentationState = PresentationClockState(time: Date(timeIntervalSince1970: 0), state: .init(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: []))
+
+        let expectedState = await ClockViewState(from: presentationState)
+
+        let task = Task { await sut.startClock() }
+
+        await useCaseMock.waitForSubscription()
+
+        #expect(sut.uiState == nil)
+
+        useCaseMock.emit(state: presentationState)
+
+        try? await Task.sleep(nanoseconds: 10_000_000)
 
         #expect(useCaseMock.getClockStateCalled)
+        #expect(sut.uiState != nil)
+
+        useCaseMock.finish()
+        await task.value
     }
 }

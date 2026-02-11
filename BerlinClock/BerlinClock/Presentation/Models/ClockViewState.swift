@@ -28,9 +28,7 @@ struct ClockViewState: Equatable {
     }
 
     private static func format(time: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        return dateFormatter.string(from: time)
+        time.formatted(.dateTime.hour().minute().second())
     }
 
     private static func calculateSecondsLampColor(_ presentationState: PresentationClockState) -> Color {

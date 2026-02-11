@@ -61,4 +61,57 @@ struct ClockViewStateTests {
 
         #expect(sut.singleMinutesRow == [Color.yellow, Color.yellow, Color.gray, Color.gray])
     }
+
+    @Test(arguments: [
+        (
+            PresentationClockState(
+                time: Date(timeIntervalSince1970: 0),
+                state: ClockState(
+                    secondsLamp: .yellow,
+                    fiveHoursRow: [.red, .red, .red, .off],
+                    singleHoursRow: [.red, .red, .off, .off],
+                    fiveMinutesRow: [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off],
+                    singleMinutesRow: [.yellow, .yellow, .off, .off]
+                )
+            ),
+            ClockViewState(
+                time: Date(timeIntervalSince1970: 0).formatted(.dateTime.hour().minute().second()),
+                secondsLampColor: .yellow,
+                fiveHoursRow: [Color.red, Color.red, Color.red, Color.gray],
+                singleHoursRow: [Color.red, Color.red, Color.gray, Color.gray],
+                fiveMinutesRow: [
+                    Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray,
+                    Color.gray, Color.gray, Color.gray,
+                ],
+                singleMinutesRow: [Color.yellow, Color.yellow, Color.gray, Color.gray]
+            )
+        ),
+        (
+            PresentationClockState(
+                time: Date(timeIntervalSince1970: 0),
+                state: ClockState(
+                    secondsLamp: .off,
+                    fiveHoursRow: [.red, .red, .off, .off],
+                    singleHoursRow: [.red, .red, .red, .off],
+                    fiveMinutesRow: [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off],
+                    singleMinutesRow: [.yellow, .yellow, .yellow, .off]
+                )
+            ),
+            ClockViewState(
+                time: Date(timeIntervalSince1970: 0).formatted(.dateTime.hour().minute().second()),
+                secondsLampColor: .gray,
+                fiveHoursRow: [Color.red, Color.red, Color.gray, Color.gray],
+                singleHoursRow: [Color.red, Color.red, Color.red, Color.gray],
+                fiveMinutesRow: [
+                    Color.yellow, Color.yellow, Color.red, Color.yellow, Color.gray, Color.gray, Color.gray, Color.gray,
+                    Color.gray, Color.gray, Color.gray,
+                ],
+                singleMinutesRow: [Color.yellow, Color.yellow, Color.yellow, Color.gray]
+            )
+        )
+    ])
+    func `test whole view state`(presentationClockState: PresentationClockState, expectedViewState: ClockViewState) {
+        let sut = ClockViewState.create(from: presentationClockState)
+        #expect(sut == expectedViewState)
+    }
 }

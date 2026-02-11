@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ClockViewState: Equatable {
     init(from presentationState: PresentationClockState) {
-        secondsLampColor = .yellow
+        secondsLampColor = presentationState.state.secondsLamp == .yellow ? .yellow : .gray
     }
 
     let secondsLampColor: Color

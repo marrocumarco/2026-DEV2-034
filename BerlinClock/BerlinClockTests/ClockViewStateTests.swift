@@ -53,7 +53,7 @@ struct ClockViewStateTests {
         #expect(sut.fiveHoursRow == [Color.red, Color.red, Color.red, Color.gray])
         #expect(sut.singleHoursRow == [Color.red, Color.red, Color.gray, Color.gray])
         let expectedFiveMinutesRow = [Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray]
-        #expect(expectedFiveMinutesRow.count == sut.fiveMinutesRow)
+        #expect(expectedFiveMinutesRow.count == sut.fiveMinutesRow.count)
 
         for index in 0..<expectedFiveMinutesRow.count {
             #expect(sut.fiveMinutesRow[index] == expectedFiveMinutesRow[index])

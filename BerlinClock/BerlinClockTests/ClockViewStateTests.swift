@@ -40,16 +40,25 @@ struct ClockViewStateTests {
         #expect(sut.secondsLampColor == Color.gray)
     }
 
-    @Test func `five hours row colors correspond to the state`() throws {
+    @Test func `all rows have colors matching to the state`() throws {
 
         let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(
             secondsLamp: .yellow,
-            fiveHoursRow: [.red, .off, .red, .off],
-            singleHoursRow: [.off, .off, .off, .off],
-            fiveMinutesRow: [.off, .off, .off, .off, .off, .off, .off, .off, .off, .off, .off],
-            singleMinutesRow: [.off, .off, .off, .off]
+            fiveHoursRow: [.red, .red, .red, .off],
+            singleHoursRow: [.red, .red, .off, .off],
+            fiveMinutesRow: [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off],
+            singleMinutesRow: [.yellow, .yellow, .off, .off]
         )))
 
-        #expect(sut.fiveHoursRow == [Color.red, Color.gray, Color.red, Color.gray])
+        #expect(sut.fiveHoursRow == [Color.red, Color.red, Color.red, Color.gray])
+        #expect(sut.singleHoursRow == [Color.red, Color.red, Color.gray, Color.gray])
+        let expectedFiveMinutesRow = [Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray]
+        #expect(expectedFiveMinutesRow.count == sut.fiveMinutesRow)
+
+        for index in 0..<expectedFiveMinutesRow.count {
+            #expect(sut.fiveMinutesRow[index] == expectedFiveMinutesRow[index])
+        }
+
+        #expect(sut.singleMinutesRow == [Color.yellow, Color.yellow, Color.gray, Color.gray])
     }
 }

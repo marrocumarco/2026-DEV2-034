@@ -17,7 +17,11 @@ class ClockViewModel {
 
     func startClock() async {
         for await state in clockUseCase.getClockState() {
-            uiState = ClockViewState(from: state)
+            updateViewState(state)
         }
+    }
+
+    fileprivate func updateViewState(_ state: PresentationClockState) {
+        uiState = ClockViewState(from: state)
     }
 }

@@ -12,12 +12,21 @@ struct ClockViewState: Equatable {
     let time: String
     let secondsLampColor: Color
     let fiveHoursRow: [Color]
+    let singleHoursRow: [Color]
+    let fiveMinutesRow: [Color]
+    let singleMinutesRow: [Color]
 
     static func create(from presentationState: PresentationClockState) -> ClockViewState {
         return ClockViewState(
             time: format(time: presentationState.time),
             secondsLampColor: calculateSecondsLampColor(presentationState),
-            fiveHoursRow: [Color.red, Color.gray, Color.red, Color.gray]
+            fiveHoursRow: [Color.red, Color.red, Color.red, Color.gray],
+            singleHoursRow: [Color.red, Color.red, Color.gray, Color.gray],
+            fiveMinutesRow: [
+                Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray,
+                Color.gray, Color.gray, Color.gray
+            ],
+            singleMinutesRow: [Color.yellow, Color.yellow, Color.gray, Color.gray]
         )
     }
 

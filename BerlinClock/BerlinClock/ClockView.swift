@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ClockView: View {
+    @State var viewModel: ClockViewModel
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -17,8 +18,4 @@ struct ClockView: View {
         }
         .padding()
     }
-}
-
-#Preview {
-    ClockView()
 }

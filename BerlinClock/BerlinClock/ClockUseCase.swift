@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ClockUseCase {
+struct ClockUseCase: ClockUseCaseProtocol {
     internal init(timeProvider: any TimeProviderProtocol, clockStateCalculator: any ClockStateCalculatorProtocol) {
         self.timeProvider = timeProvider
         self.clockStateCalculator = clockStateCalculator

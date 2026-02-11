@@ -11,7 +11,14 @@ import SwiftUI
 struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
-            ClockView()
+            ClockView(
+                viewModel: ClockViewModel(
+                    clockUseCase: ClockUseCase(
+                        timeProvider: TimeProvider(),
+                        clockStateCalculator: ClockStateCalculator(dateParser: DateParserImpl())
+                    )
+                )
+            )
         }
     }
 }

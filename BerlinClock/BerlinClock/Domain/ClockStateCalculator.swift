@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ClockStateCalculator {
+struct ClockStateCalculator: ClockStateCalculatorProtocol {
 
     private static let hoursPerLampInFiveHoursRow = 5
     private static let minutesPerLampInFiveMinutesRow = 5

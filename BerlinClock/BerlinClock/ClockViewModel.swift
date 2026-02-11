@@ -7,6 +7,7 @@
 
 import Foundation
 
+@Observable
 class ClockViewModel {
     internal init(clockUseCase: any ClockUseCaseProtocol) {
         self.clockUseCase = clockUseCase

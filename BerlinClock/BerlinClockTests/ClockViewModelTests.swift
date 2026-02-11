@@ -57,7 +57,7 @@ struct ClockViewModelTests {
 
         let presentationState = PresentationClockState(time: Date(timeIntervalSince1970: 0), state: .init(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: []))
 
-        let expectedState = await ClockViewState(from: presentationState)
+        let expectedState = await ClockViewState.create(from: presentationState)
 
         let task = Task { await sut.startClock() }
 

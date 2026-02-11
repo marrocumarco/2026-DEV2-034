@@ -22,6 +22,6 @@ class ClockViewModel {
     }
 
     fileprivate func updateViewState(_ state: PresentationClockState) {
-        uiState = ClockViewState(from: state)
+        uiState = ClockViewState.create(from: state)
     }
 }

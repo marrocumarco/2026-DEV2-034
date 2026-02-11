@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ClockViewState: Equatable {
-    init(from presentationState: PresentationClockState) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        time = dateFormatter.string(from: presentationState.time)
-        secondsLampColor = presentationState.state.secondsLamp == .yellow ? .yellow : .gray
-    }
 
     let time: String
     let secondsLampColor: Color
+
+    static func create(from presentationState: PresentationClockState) -> ClockViewState {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        return ClockViewState(
+            time: dateFormatter.string(from: presentationState.time),
+            secondsLampColor: presentationState.state.secondsLamp == .yellow ? .yellow : .gray
+        )
+    }
 }

@@ -21,21 +21,21 @@ struct ClockViewStateTests {
         dateFormatter.dateFormat = "HH:mm:ss"
         let time = dateFormatter.date(from: expectedTimeString)!
 
-        let sut = ClockViewState(from: PresentationClockState(time: time, state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
+        let sut = ClockViewState.create(from: PresentationClockState(time: time, state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
 
         #expect(expectedTimeString == sut.time)
     }
 
     @Test func `seconds lamp color is yellow when on`() throws {
 
-        let sut = ClockViewState(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
+        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
 
         #expect(sut.secondsLampColor == Color.yellow)
     }
 
     @Test func `seconds lamp color is gray when off`() throws {
 
-        let sut = ClockViewState(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .off, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
+        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .off, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
 
         #expect(sut.secondsLampColor == Color.gray)
     }

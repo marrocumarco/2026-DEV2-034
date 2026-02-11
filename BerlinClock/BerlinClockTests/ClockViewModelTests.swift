@@ -70,7 +70,7 @@ struct ClockViewModelTests {
         try? await Task.sleep(nanoseconds: 10_000_000)
 
         #expect(useCaseMock.getClockStateCalled)
-        #expect(sut.uiState != nil)
+        #expect(sut.uiState == expectedState)
 
         useCaseMock.finish()
         await task.value

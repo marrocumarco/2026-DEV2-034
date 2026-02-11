@@ -14,16 +14,18 @@ import SwiftUI
 
 struct ClockViewStateTests {
 
-    @Test(arguments: ["00:00:00", "23:59:59"])
-    func `the timestamp corresponds to the formatted time of the state`(expectedTimeString: String) {
+    @Test(arguments: [
+        0.0,
+        43200.0,
+        86399.0
+    ])
+    func `the timestamp corresponds to the formatted time of the state`(seconds: TimeInterval) {
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        let time = dateFormatter.date(from: expectedTimeString)!
-
+        let time = Date(timeIntervalSince1970: seconds)
+        let expectedString = time.formatted(.dateTime.hour().minute().second())
         let sut = ClockViewState.create(from: PresentationClockState(time: time, state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
 
-        #expect(expectedTimeString == sut.time)
+        #expect(expectedString == sut.time)
     }
 
     @Test(arguments: [

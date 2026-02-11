@@ -11,9 +11,17 @@ import SwiftUI
 struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
-            ClockView(
-                viewModel: DependencyInjectionContainer.clockViewModel
-            )
+            if isRunningUnitTests() {
+                Text("Running Unit Tests...")
+            } else {
+                ClockView(
+                    viewModel: DependencyInjectionContainer.clockViewModel
+                )
+            }
         }
+    }
+
+    private func isRunningUnitTests() -> Bool {
+        return NSClassFromString("XCTestCase") != nil
     }
 }

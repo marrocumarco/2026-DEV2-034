@@ -15,7 +15,7 @@ struct ClockViewState: Equatable {
     static func create(from presentationState: PresentationClockState) -> ClockViewState {
         return ClockViewState(
             time: format(time: presentationState.time),
-            secondsLampColor: presentationState.state.secondsLamp == .yellow ? .yellow : .gray
+            secondsLampColor: calculateSecondsLampColor(presentationState)
         )
     }
 
@@ -23,5 +23,9 @@ struct ClockViewState: Equatable {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
         return dateFormatter.string(from: time)
+    }
+
+    private static func calculateSecondsLampColor(_ presentationState: PresentationClockState) -> Color {
+        return presentationState.state.secondsLamp == .yellow ? .yellow : .gray
     }
 }

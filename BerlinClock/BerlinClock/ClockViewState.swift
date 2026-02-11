@@ -20,10 +20,10 @@ struct ClockViewState: Equatable {
         return ClockViewState(
             time: format(time: presentationState.time),
             secondsLampColor: calculateSecondsLampColor(presentationState),
-            fiveHoursRow: createColorList(from: presentationState.state.fiveHoursRow),
-            singleHoursRow: createColorList(from: presentationState.state.singleHoursRow),
-            fiveMinutesRow: createColorList(from: presentationState.state.fiveMinutesRow),
-            singleMinutesRow: createColorList(from: presentationState.state.singleMinutesRow),
+            fiveHoursRow: calculateFiveHoursRowLampColors(from: presentationState),
+            singleHoursRow: calculateSingleHoursRowLampColors(from: presentationState),
+            fiveMinutesRow: calculateFiveMinutesRowLampColors(from: presentationState),
+            singleMinutesRow: calculateSingleMinutesRowLampColors(from: presentationState),
         )
     }
 
@@ -35,6 +35,22 @@ struct ClockViewState: Equatable {
 
     private static func calculateSecondsLampColor(_ presentationState: PresentationClockState) -> Color {
         return getColor(from: presentationState.state.secondsLamp)
+    }
+
+    private static func calculateFiveHoursRowLampColors(from presentationState: PresentationClockState) -> [Color] {
+        return createColorList(from: presentationState.state.fiveHoursRow)
+    }
+
+    private static func calculateSingleHoursRowLampColors(from presentationState: PresentationClockState) -> [Color] {
+        return createColorList(from: presentationState.state.singleHoursRow)
+    }
+
+    private static func calculateFiveMinutesRowLampColors(from presentationState: PresentationClockState) -> [Color] {
+        return createColorList(from: presentationState.state.fiveMinutesRow)
+    }
+
+    private static func calculateSingleMinutesRowLampColors(from presentationState: PresentationClockState) -> [Color] {
+        return createColorList(from: presentationState.state.singleMinutesRow)
     }
 
     private static func getColor(from state: LampState) -> Color {

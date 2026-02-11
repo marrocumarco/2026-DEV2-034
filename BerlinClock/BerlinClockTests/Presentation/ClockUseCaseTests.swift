@@ -29,6 +29,8 @@ struct ClockUseCaseTests {
     {
         var iterator = await sut.getClockState().makeAsyncIterator()
 
+        try? await Task.sleep(nanoseconds: 10_000_000)
+
         let expectedClockState = ClockState(
             secondsLamp: .yellow,
             fiveHoursRow: [.off, .off, .off, .off],
@@ -49,5 +51,7 @@ struct ClockUseCaseTests {
         #expect(clockStateCalculator.getClockStateCalled)
         #expect(result?.time == time)
         #expect(result?.state == expectedClockState)
+
+        timeProvider.continuation?.finish()
     }
 }

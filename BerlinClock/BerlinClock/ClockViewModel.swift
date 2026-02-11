@@ -12,7 +12,7 @@ class ClockViewModel {
         self.clockUseCase = clockUseCase
     }
 
-    var uiState: ClockViewState?
+    private(set) var uiState: ClockViewState?
     private let clockUseCase: ClockUseCaseProtocol
 
     func startClock() async {

@@ -26,42 +26,6 @@ struct ClockViewStateTests {
         #expect(expectedTimeString == sut.time)
     }
 
-    @Test func `seconds lamp color is yellow when on`() throws {
-
-        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
-
-        #expect(sut.secondsLampColor == Color.yellow)
-    }
-
-    @Test func `seconds lamp color is gray when off`() throws {
-
-        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .off, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
-
-        #expect(sut.secondsLampColor == Color.gray)
-    }
-
-    @Test func `all rows have colors matching to the state`() throws {
-
-        let sut = ClockViewState.create(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(
-            secondsLamp: .yellow,
-            fiveHoursRow: [.red, .red, .red, .off],
-            singleHoursRow: [.red, .red, .off, .off],
-            fiveMinutesRow: [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off],
-            singleMinutesRow: [.yellow, .yellow, .off, .off]
-        )))
-
-        #expect(sut.fiveHoursRow == [Color.red, Color.red, Color.red, Color.gray])
-        #expect(sut.singleHoursRow == [Color.red, Color.red, Color.gray, Color.gray])
-        let expectedFiveMinutesRow = [Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray]
-        #expect(expectedFiveMinutesRow.count == sut.fiveMinutesRow.count)
-
-        for index in 0..<expectedFiveMinutesRow.count {
-            #expect(sut.fiveMinutesRow[index] == expectedFiveMinutesRow[index])
-        }
-
-        #expect(sut.singleMinutesRow == [Color.yellow, Color.yellow, Color.gray, Color.gray])
-    }
-
     @Test(arguments: [
         (
             ClockState(

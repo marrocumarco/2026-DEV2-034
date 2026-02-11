@@ -12,11 +12,12 @@ class ClockViewModel {
         self.clockUseCase = clockUseCase
     }
 
+    var uiState: ClockViewState?
     private let clockUseCase: ClockUseCaseProtocol
 
-    func startClock() {
-
-        clockUseCase.getClockState()
-
+    func startClock() async {
+        for await state in clockUseCase.getClockState() {
+            uiState = ClockViewState(from: state)
+        }
     }
 }

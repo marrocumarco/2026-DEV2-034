@@ -12,12 +12,7 @@ struct BerlinClockApp: App {
     var body: some Scene {
         WindowGroup {
             ClockView(
-                viewModel: ClockViewModel(
-                    clockUseCase: ClockUseCase(
-                        timeProvider: TimeProvider(),
-                        clockStateCalculator: ClockStateCalculator(dateParser: DateParserImpl())
-                    )
-                )
+                viewModel: DependencyInjectionContainer.clockViewModel
             )
         }
     }

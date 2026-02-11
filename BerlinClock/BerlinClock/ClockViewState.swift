@@ -5,8 +5,12 @@
 //  Created by 2026-DEV2-034 on 11/02/2026
 //
 
-import Foundation
+import SwiftUI
 
 struct ClockViewState: Equatable {
-    init(from presentationState: PresentationClockState) {}
+    init(from presentationState: PresentationClockState) {
+        secondsLampColor = .yellow
+    }
+
+    let secondsLampColor: Color
 }

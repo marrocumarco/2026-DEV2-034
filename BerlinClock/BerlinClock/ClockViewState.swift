@@ -13,11 +13,15 @@ struct ClockViewState: Equatable {
     let secondsLampColor: Color
 
     static func create(from presentationState: PresentationClockState) -> ClockViewState {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
         return ClockViewState(
-            time: dateFormatter.string(from: presentationState.time),
+            time: format(time: presentationState.time),
             secondsLampColor: presentationState.state.secondsLamp == .yellow ? .yellow : .gray
         )
+    }
+
+    private static func format(time: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        return dateFormatter.string(from: time)
     }
 }

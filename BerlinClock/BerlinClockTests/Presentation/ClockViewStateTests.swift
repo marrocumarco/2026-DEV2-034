@@ -64,16 +64,14 @@ struct ClockViewStateTests {
 
     @Test(arguments: [
         (
-            PresentationClockState(
-                time: Date(timeIntervalSince1970: 0),
-                state: ClockState(
+            ClockState(
                     secondsLamp: .yellow,
                     fiveHoursRow: [.red, .red, .red, .off],
                     singleHoursRow: [.red, .red, .off, .off],
                     fiveMinutesRow: [.yellow, .yellow, .red, .off, .off, .off, .off, .off, .off, .off, .off],
                     singleMinutesRow: [.yellow, .yellow, .off, .off]
                 )
-            ),
+            ,
             ClockViewState(
                 time: Date(timeIntervalSince1970: 0).formatted(.dateTime.hour().minute().second()),
                 secondsLampColor: .yellow,
@@ -87,16 +85,14 @@ struct ClockViewStateTests {
             )
         ),
         (
-            PresentationClockState(
-                time: Date(timeIntervalSince1970: 1),
-                state: ClockState(
+            ClockState(
                     secondsLamp: .off,
                     fiveHoursRow: [.red, .red, .off, .off],
                     singleHoursRow: [.red, .red, .red, .off],
                     fiveMinutesRow: [.yellow, .yellow, .red, .yellow, .off, .off, .off, .off, .off, .off, .off],
                     singleMinutesRow: [.yellow, .yellow, .yellow, .off]
                 )
-            ),
+            ,
             ClockViewState(
                 time: Date(timeIntervalSince1970: 1).formatted(.dateTime.hour().minute().second()),
                 secondsLampColor: .gray,
@@ -110,8 +106,16 @@ struct ClockViewStateTests {
             )
         )
     ])
-    func `test whole view state`(presentationClockState: PresentationClockState, expectedViewState: ClockViewState) {
+    func `test if colors match with clock state`(clockState: ClockState, expectedViewState: ClockViewState) {
+
+        let presentationClockState = PresentationClockState(time: Date(), state: clockState)
+
         let sut = ClockViewState.create(from: presentationClockState)
-        #expect(sut == expectedViewState)
+
+        #expect(sut.secondsLampColor == expectedViewState.secondsLampColor)
+        #expect(sut.fiveHoursRow == expectedViewState.fiveHoursRow)
+        #expect(sut.singleHoursRow == expectedViewState.singleHoursRow)
+        #expect(sut.fiveMinutesRow == expectedViewState.fiveMinutesRow)
+        #expect(sut.singleMinutesRow == expectedViewState.singleMinutesRow)
     }
 }

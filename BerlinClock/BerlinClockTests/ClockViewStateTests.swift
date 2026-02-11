@@ -14,10 +14,17 @@ import SwiftUI
 
 struct ClockViewStateTests {
 
-    @Test func `seconds lamp color is correct`() throws {
+    @Test func `seconds lamp color is yellow when on`() throws {
 
         let sut = ClockViewState(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .yellow, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
 
         #expect(sut.secondsLampColor == Color.yellow)
+    }
+
+    @Test func `seconds lamp color is gray when off`() throws {
+
+        let sut = ClockViewState(from: PresentationClockState(time: Date(timeIntervalSince1970: 0), state: ClockState(secondsLamp: .off, fiveHoursRow: [], singleHoursRow: [], fiveMinutesRow: [], singleMinutesRow: [])))
+
+        #expect(sut.secondsLampColor == Color.gray)
     }
 }

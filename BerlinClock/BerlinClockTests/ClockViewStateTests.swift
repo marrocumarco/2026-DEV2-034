@@ -88,7 +88,7 @@ struct ClockViewStateTests {
         ),
         (
             PresentationClockState(
-                time: Date(timeIntervalSince1970: 0),
+                time: Date(timeIntervalSince1970: 1),
                 state: ClockState(
                     secondsLamp: .off,
                     fiveHoursRow: [.red, .red, .off, .off],
@@ -98,7 +98,7 @@ struct ClockViewStateTests {
                 )
             ),
             ClockViewState(
-                time: Date(timeIntervalSince1970: 0).formatted(.dateTime.hour().minute().second()),
+                time: Date(timeIntervalSince1970: 1).formatted(.dateTime.hour().minute().second()),
                 secondsLampColor: .gray,
                 fiveHoursRow: [Color.red, Color.red, Color.gray, Color.gray],
                 singleHoursRow: [Color.red, Color.red, Color.red, Color.gray],

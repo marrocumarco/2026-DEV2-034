@@ -20,13 +20,10 @@ struct ClockViewState: Equatable {
         return ClockViewState(
             time: format(time: presentationState.time),
             secondsLampColor: calculateSecondsLampColor(presentationState),
-            fiveHoursRow: [Color.red, Color.red, Color.red, Color.gray],
-            singleHoursRow: [Color.red, Color.red, Color.gray, Color.gray],
-            fiveMinutesRow: [
-                Color.yellow, Color.yellow, Color.red, Color.gray, Color.gray, Color.gray, Color.gray, Color.gray,
-                Color.gray, Color.gray, Color.gray
-            ],
-            singleMinutesRow: [Color.yellow, Color.yellow, Color.gray, Color.gray]
+            fiveHoursRow: createColorList(from: presentationState.state.fiveHoursRow),
+            singleHoursRow: createColorList(from: presentationState.state.singleHoursRow),
+            fiveMinutesRow: createColorList(from: presentationState.state.fiveMinutesRow),
+            singleMinutesRow: createColorList(from: presentationState.state.singleMinutesRow),
         )
     }
 
@@ -38,5 +35,18 @@ struct ClockViewState: Equatable {
 
     private static func calculateSecondsLampColor(_ presentationState: PresentationClockState) -> Color {
         return presentationState.state.secondsLamp == .yellow ? .yellow : .gray
+    }
+
+    private static func createColorList(from lampStateList: [LampState]) -> [Color] {
+        lampStateList.map { state in
+            switch state {
+            case .red:
+                return .red
+            case .yellow:
+                return .yellow
+            case .off:
+                return .gray
+            }
+        }
     }
 }

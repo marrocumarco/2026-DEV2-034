@@ -12,15 +12,32 @@ class TimeProviderMock: TimeProviderProtocol {
 
     var getTimeCalled = false
     var continuation: AsyncStream<Date>.Continuation?
+    var subscriptionContinuation: CheckedContinuation<Void,Never>?
 
     func getTime() -> AsyncStream<Date> {
-        getTimeCalled = true
+
+        if let subContinuation = subscriptionContinuation {
+            getTimeCalled = true
+            subContinuation.resume()
+            subscriptionContinuation = nil
+        }
+
         return AsyncStream {
             continuation = $0
         }
     }
 
+    func waitForSubscription() async {
+        await withCheckedContinuation { continuation in
+            self.subscriptionContinuation = continuation
+        }
+    }
+
     func emit(time: Date) {
         continuation?.yield(time)
+    }
+
+    func finish() {
+        continuation?.finish()
     }
 }

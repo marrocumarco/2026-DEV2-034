@@ -27,10 +27,7 @@ struct ClockUseCaseTests {
         `getClockState calls clockStateCalculator and returns a stream of PresentationClockState when the time provider emits a time`()
         async
     {
-        var iterator = await sut.getClockState().makeAsyncIterator()
-
-        try? await Task.sleep(nanoseconds: 10_000_000)
-
+        //Given
         let expectedClockState = ClockState(
             secondsLamp: .yellow,
             fiveHoursRow: [.off, .off, .off, .off],
@@ -41,8 +38,16 @@ struct ClockUseCaseTests {
 
         clockStateCalculator.expectedClockState = expectedClockState
 
+        //When
+        let task = Task { await sut.getClockState() }
+
+        await timeProvider.waitForSubscription()
+
         let time = Date(timeIntervalSince1970: 0)
         timeProvider.emit(time: time)
+
+        //Then
+        var iterator = await task.value.makeAsyncIterator()
 
         let result: PresentationClockState? = await iterator.next()
 
